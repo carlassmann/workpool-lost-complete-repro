@@ -57,8 +57,8 @@ console.log(
     .trim()
     .split("\n")
     .map((line) => JSON.parse(line))
-    .filter((f) => /worker|complete/.test(f.name))
-    .map((f) => `  ${f.name} ${f.state.kind}${f.state.error ? `: ${f.state.error}` : ""}`)
+    .filter((f) => /worker|complete|recover/.test(f.name))
+    .map((f) => `  ${new Date(f.scheduledTime).toISOString()} ${f.name} ${f.state.kind}${f.state.error ? `: ${f.state.error}` : ""} ${f.name.includes("recover") ? JSON.stringify(f.args) : ""}`)
     .join("\n"),
 );
 

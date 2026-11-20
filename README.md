@@ -18,7 +18,9 @@ change the watch time.
 
 Latest versions: `npm install @convex-dev/workpool@latest convex@latest && npm run repro`.
 
-Recorded runs: `logs/repro-0.4.14.log` (convex 1.46.0) and `logs/repro-0.4.16.log` (convex 1.51.0); both reproduce.
+Recorded runs, all reproduce: `logs/repro-0.4.14.log` (convex 1.46.0), `logs/repro-0.4.16.log` and
+`logs/repro-0.5.0.log` (convex 1.51.0). `logs/repro-0.4.14-recovery.log` and the 0.5.0 log also list
+the `recover` runs that saw the job and left it running.
 
 ### Why a local backend, not convex-test
 
@@ -39,8 +41,8 @@ else is changed.
 
 **Title:** Mutation job stays "running" forever when its scheduled `complete` fails
 
-**Versions:** `@convex-dev/workpool` 0.4.14 and 0.4.16 (latest), `convex` 1.46.0 and
-1.51.0, local backend.
+**Versions:** `@convex-dev/workpool` 0.4.14, 0.4.16 and 0.5.0 (latest); `convex` 1.46.0 and
+1.51.0; local backend. `src/component/recovery.ts` on `main` is unchanged since 0.4.14.
 
 **Steps**
 
@@ -59,12 +61,16 @@ runs, and B starts.
 B stays `pending`. The pool is wedged until someone calls `complete:complete` by hand.
 
 ```
-complete.js:complete         failed: Uncaught Error: injected: simulated platform error in complete
-worker.js:runMutationWrapper success
+12:53:27 worker.js:runMutationWrapper success
+12:53:27 complete.js:complete         failed: Uncaught Error: injected: simulated platform error in complete
+12:58:27 recovery.js:recover          success {"jobs":[{"attempt":0,"workId":"<lost job>",...}]}
+12:59:27 recovery.js:recover          success (same job)
+13:00:27 recovery.js:recover          success (same job)
+13:01:27 recovery.js:recover          success (same job)
 t+8.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"state":"running"},"waiting":{"state":"pending"}}}
 ```
 
-**Cause:** `recoveryHandler` (`src/component/recovery.ts`, `switch (scheduled.state.kind)`)
+**Cause:** recovery does run for the job every minute after the 5-minute threshold (above), but `recoveryHandler` (`src/component/recovery.ts`, `switch (scheduled.state.kind)`)
 only completes jobs whose scheduled function is `failed`, `canceled` or missing. A
 `success` wrapper whose `complete` was lost has no `pendingCompletion`, the work still
 exists at the same attempt, and the switch has no `success` case, so it is skipped on
