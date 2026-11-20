@@ -1,0 +1,29 @@
+enqueued {
+  lost: 'jx71r5msk7d88xa7jv6mzny9pn8jfrjj',
+  waiting: 'jx76nfsh370n27nszyv5bg5jj18jfhdn'
+}
+t+0.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+1.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+1.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+2.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+2.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+3.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+3.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+4.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+4.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+5.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+5.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+6.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+6.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+7.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+7.5min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+t+8.0min {"completions":[],"jobRuns":["lost"],"status":{"lost":{"previousAttempts":0,"state":"running"},"waiting":{"previousAttempts":0,"state":"pending"}}}
+
+workpool component's scheduled functions:
+  complete.js:complete failed: Uncaught Error: injected: simulated platform error in complete
+    at handler (../../node_modules/@convex-dev/workpool/src/component/complete.ts:238:3)
+
+  worker.js:runMutationWrapper success
+
+REPRODUCED: job 'lost' ran successfully, its complete failed, and after 8 min it still holds the only slot: onComplete never ran, status stays 'running', and job 'waiting' never started.
+exit=1
