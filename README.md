@@ -7,4 +7,4 @@ npm run repro   # local backend, ~9 min, exits 1 when reproduced
 
 Run logs are in `logs/` (0.4.14, 0.4.16, 0.5.0). The repro uses a local backend instead of convex-test because recovery depends on real scheduler state and timing.
 
-Issue: (link added after filing)
+Issue: https://github.com/convex/workpool/issues/276
